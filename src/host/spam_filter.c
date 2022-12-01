@@ -23,25 +23,25 @@ int main(int argc, char *argv[])
 
     printf("Spam Filter Application\n");
 
-    char** path_to_data;
+    char* path_to_data;
     char* str_points_filepath=NULL;
     char* str_labels_filepath=NULL;
     char str_points_filepath_array[150];
     char str_labels_filepath_array[150];
-    printf("path_to_data: %s \n",*path_to_data);
-    parse_sdsoc_command_line_args(argc, argv, path_to_data);
-    printf("path_to_data: %s \n",*path_to_data);
+
+    path_to_data=parse_sdsoc_command_line_args(argc, argv, path_to_data);
+//    path_to_data="./data";
+    printf("path_to_data: %s \n",path_to_data);
 
     // allocate space
     // for software verification
-    DataType*    data_points  = new DataType[DATA_SET_SIZE];
-    LabelType*   labels       = new LabelType  [NUM_SAMPLES];
-    FeatureType* param_vector = new FeatureType[NUM_FEATURES];
+    DataType*    data_points  = (DataType*)malloc(sizeof(DataType)*DATA_SET_SIZE);
+    LabelType*   labels       = (LabelType*)malloc(sizeof(LabelType)*NUM_SAMPLES);
+    FeatureType* param_vector = (FeatureType*)malloc(sizeof(FeatureType)*NUM_FEATURES);
 
     // read in dataset
-
-    sprintf(str_points_filepath_array,"%s/shuffledfeats.dat",*path_to_data);
-    sprintf(str_labels_filepath_array,"%s/shuffledlabels.dat",*path_to_data);
+    sprintf(str_points_filepath_array,"%s/shuffledfeats.dat",path_to_data);
+    sprintf(str_labels_filepath_array,"%s/shuffledlabels.dat",path_to_data);
     str_points_filepath=str_points_filepath_array;
     str_labels_filepath=str_labels_filepath_array;
 
@@ -57,7 +57,13 @@ int main(int argc, char *argv[])
     for (int i = 0; i < DATA_SET_SIZE; i ++ )
     {
         float tmp;
-        fscanf(data_file, "%f", &tmp);
+//        if(fscanf(data_file, "%f", &tmp));
+        int r=fscanf(data_file, "%f", &tmp);
+        if(r==-1)
+        {
+            printf("Fscanf Failed.\n");
+            return EXIT_FAILURE;
+        }
         data_points[i] = tmp;
     }
     fclose(data_file);
@@ -71,7 +77,13 @@ int main(int argc, char *argv[])
     for (int i = 0; i < NUM_SAMPLES; i ++ )
     {
         int tmp;
-        fscanf(label_file, "%d", &tmp);
+//        if(fscanf(label_file, "%d", &tmp));
+        int d=fscanf(label_file, "%d", &tmp);
+        if(d==-1)
+        {
+            printf("Fscanf Failed.\n");
+            return EXIT_FAILURE;
+        }
         labels[i] = tmp;
     }
     fclose(label_file);
@@ -99,9 +111,9 @@ int main(int argc, char *argv[])
     printf("elapsed time: %lld us\n", elapsed);
 
     // cleanup
-    delete []data_points;
-    delete []labels;
-    delete []param_vector;
+    free(data_points);
+    free(labels);
+    free(param_vector);
 
     return EXIT_SUCCESS;
 }

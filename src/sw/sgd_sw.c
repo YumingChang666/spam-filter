@@ -9,9 +9,9 @@
 /*              Software version for spam filtering.             */
 /*                                                               */
 /*===============================================================*/
-
+//#include "tgmath.h"
 #include "sgd_sw.h"
-#include "math.h"
+#include <math.h>
 
 // Function to compute the dot product of data (feature) vector and parameter vector
 FeatureType dotProduct(FeatureType param[NUM_FEATURES],

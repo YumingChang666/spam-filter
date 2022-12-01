@@ -15,3 +15,5 @@ SW_KERNEL_H = ./src/host/typedefs.h
 #-------------------------
 include ./harness/harness.mk
 
+# run with "./SgdLR_sw.exe -p ./data "(After "make")
+

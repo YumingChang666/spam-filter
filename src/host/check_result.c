@@ -19,7 +19,7 @@ typedef struct DataSet_s
 
 // sub-functions for result checking
 // dot product
-float dotProduct(FeatureType* param_vector, DataType* data_point_i, const size_t num_features)
+float dotProduct1(FeatureType* param_vector, DataType* data_point_i, const size_t num_features)
 {
     FeatureType result = 0.0f;
 
@@ -29,9 +29,11 @@ float dotProduct(FeatureType* param_vector, DataType* data_point_i, const size_t
 }
 
 // predict
-LabelType getPrediction(FeatureType* parameter_vector, DataType* data_point_i, size_t num_features, const double treshold = 0)
+//LabelType getPrediction(FeatureType* parameter_vector, DataType* data_point_i, size_t num_features, const double treshold = 0)
+LabelType getPrediction(FeatureType* parameter_vector, DataType* data_point_i, size_t num_features)
 {
-    float parameter_vector_dot_x_i = dotProduct(parameter_vector, data_point_i, num_features);
+    double treshold = 0;
+    float parameter_vector_dot_x_i = dotProduct1(parameter_vector, data_point_i, num_features);
     return (parameter_vector_dot_x_i > treshold) ? 1 : 0;
 }
 
@@ -120,7 +122,7 @@ void check_results(FeatureType* param_vector, DataType* data_points, LabelType* 
         testing_error *= 100.0;
 
         fprintf(ofile,"Training TPR: %lf \n",training_tpr);
-        fprintf(ofile,"\"Training FPR: %lf \n",training_fpr);
+        fprintf(ofile,"Training FPR: %lf \n",training_fpr);
         fprintf(ofile,"Training Error: %lf \n",training_error);
         fprintf(ofile,"Testing TPR: %lf \n",testing_tpr);
         fprintf(ofile,"Testing FPR: %lf \n",testing_fpr);

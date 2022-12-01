@@ -17,11 +17,11 @@ SW_EXE = $(KERNEL_NAME)_sw.exe
 
 .PHONY: all sw clean
 
-all: sw
+all: sw -lm
 
 # software rules
 sw: $(HOST_SRC_CPP) $(HOST_SRC_H) $(SW_KENREL_SRC) $(SW_KERNEL_H) $(DATA)
-	$(SW_CXX) $(SW_FLAGS) -o $(SW_EXE) $(HOST_SRC_CPP) $(SW_KERNEL_SRC)
+	$(SW_CXX) $(SW_FLAGS) -o $(SW_EXE) $(HOST_SRC_CPP) $(SW_KERNEL_SRC) -lm
 
 # cleanup
 clean:

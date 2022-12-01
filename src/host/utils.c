@@ -7,6 +7,7 @@
 #include <getopt.h>
 
 #include "utils.h"
+#include "typedefs.h"
 
 void print_usage(char* filename)
 {
@@ -15,10 +16,10 @@ void print_usage(char* filename)
     printf("  -p [path to data]\n");
 }
 
-void parse_sdsoc_command_line_args(
+char* parse_sdsoc_command_line_args(
         int argc,
         char** argv,
-        char** path_to_data)
+        char* path_to_data)
 {
 
     int c = 0;
@@ -28,7 +29,7 @@ void parse_sdsoc_command_line_args(
         switch (c)
         {
             case 'p':
-                *path_to_data = optarg;
+                path_to_data = optarg;
                 break;
             default:
             {
@@ -37,4 +38,6 @@ void parse_sdsoc_command_line_args(
             }
         } // matching on arguments
     } // while args present
+
+    return path_to_data;
 }
