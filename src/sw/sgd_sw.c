@@ -9,7 +9,7 @@
 /*              Software version for spam filtering.             */
 /*                                                               */
 /*===============================================================*/
-//#include "tgmath.h"
+
 #include "sgd_sw.h"
 #include <math.h>
 
