@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
         printf("Failed to open label file %s!\n", str_labels_filepath);
         return EXIT_FAILURE;
     }
-    for (int i = 0; i < NUM_SAMPLES; i ++ )
+    for (int j = 0; j < NUM_SAMPLES; j ++ )
     {
         int tmp;
 //        if(fscanf(label_file, "%d", &tmp));
@@ -84,14 +84,14 @@ int main(int argc, char *argv[])
             printf("Fscanf Failed.\n");
             return EXIT_FAILURE;
         }
-        labels[i] = tmp;
+        labels[j] = tmp;
     }
     fclose(label_file);
 
 
     // reset parameter vector
-    for (size_t i = 0; i < NUM_FEATURES; i++)
-        param_vector[i] = 0;
+    for (size_t k = 0; k < NUM_FEATURES; k++)
+        param_vector[k] = 0;
 
     // timers
     struct timeval start, end;
